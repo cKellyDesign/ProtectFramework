@@ -2104,9 +2104,19 @@ var requirejs, require, define;
 
 define("../node_modules/requirejs/require", function(){});
 
-require([], function () {
+define('views/testRoot',[], function(){
+	var testRoot = Backbone.View.extend({
+		initialize: function() {
+			console.log("test page initialized");
+		}
+	});
+	return testRoot;
+});
+require([
+	'./views/testRoot'], function (TestRoot) {
 	Protect = window.Protect || {};
 	
+	Protect.testRoot = new TestRoot({ el: $('#j-main') });
 });
 define("require.js", function(){});
 
