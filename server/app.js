@@ -3,7 +3,8 @@ var http = require('http'),
 	express = require('express'),
 	requireJS = require('requirejs'),
 	bodyParser = require('body-parser'),
-	mongoose = require('mongoose');
+	mongoose = require('mongoose'),
+	router = require('./router');
 
 mongoose.connect(process.env.DB_PATH);
 var db = mongoose.connection;
@@ -18,14 +19,13 @@ requireJS.config({
 
 app.use(bodyParser.json());
 
-app.get('/', function (req, res, next) {
-	res.sendFile(path.join(__dirname + '/../www/index.html'));
-});
+router.handleRoutes(app);
 
 app.set('port', 8080);
 app.set('case sensitive routing', false);
 
 app.use('/js', express.static(path.join(__dirname, '../www/js')));
+app.use('/css', express.static(path.join(__dirname, '../www/css')));
 
 var server = app.listen(process.env.PORT || app.get('port'), function(){
 	console.log("Server has been started at " + server.address().port);

@@ -1,0 +1,7 @@
+body {
+	font-family: helvetica, arial;
+}
+
+label, input, textarea {
+	display: block;
+}
